@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { Switch, Route } from "react-router-dom";
+import Header from './components/Header/Header';
+import SignupPage from './pages/SignupPage';
+import HomePage from './pages/HomePage';
+import ProfilePage from './pages/ProfilePage';
 import './App.css';
+import { auth } from './components/Firebase/FirebaseUtils';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const unsubscribeFromAuth = () => null;
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => setCurrentUser(user))
+    console.log(currentUser);
+
+    return () => unsubscribeFromAuth();
+  },[currentUser])
+
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header currentUser={currentUser} />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/signup" component={SignupPage} />
+        <Route path="/profile" component={ProfilePage} />
+      </Switch>
     </div>
   );
 }
