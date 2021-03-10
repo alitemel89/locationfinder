@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import MapQuest from '../components/MapQuest/MapQuest';
 import MyLocation from '../components/MyLocation/MyLocation';
 
+const api_key = process.env.MAP_QUEST_REACT_APP_API_KEY;
+
 const HomePage = () => {
     const [lat, setLat] = useState('51.034809');
     const [lng, setLng] = useState('3.729268');
@@ -43,7 +45,7 @@ const HomePage = () => {
             center={[lat, lng]}
             tileLayer={'map'} //map, dark
             zoom={12}
-            apiKey={`${process.env.MAP_QUEST_REACT_APP_API_KEY}`}
+            apiKey={`${api_key}`}
             />
         </div>
 
