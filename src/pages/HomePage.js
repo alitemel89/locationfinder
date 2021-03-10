@@ -43,7 +43,7 @@ const HomePage = () => {
             center={[lat, lng]}
             tileLayer={'map'} //map, dark
             zoom={12}
-            apiKey="GKKfhSGiuCci3f0vi6uvpxIrqAWMXyaR"
+            apiKey={`${process.env.MAP_QUEST_REACT_APP_API_KEY}`}
             />
         </div>
 
