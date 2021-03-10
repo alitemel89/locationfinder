@@ -24,6 +24,7 @@ export const LocationButton = styled.button`
     &:active {
     background-color: #f5a3bf;
     }
+    
 
     @media screen and (max-width: 426px) {
         margin: 2rem auto;
