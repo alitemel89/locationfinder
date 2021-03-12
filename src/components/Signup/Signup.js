@@ -32,10 +32,10 @@ const Signup = () => {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    signup(emailRef.current.value, passwordRef.current.value)
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return alert('Passwords do not match')
+      alert('Passwords do not match');
+      return;
     }
 
     try {
