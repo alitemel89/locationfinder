@@ -6,6 +6,7 @@ import { MdLocationOn } from "@react-icons/all-files/md/MdLocationOn";
 import { IoMdPersonAdd } from "@react-icons/all-files/io/IoMdPersonAdd";
 import { MdMessage } from "@react-icons/all-files/md/MdMessage";
 import { BsHeartFill } from "@react-icons/all-files/bs/BsHeartFill";
+import { useAuth } from "../../contexts/AuthContext";
 
 import {
   CardWrapper,
@@ -21,6 +22,32 @@ import {
 } from "./ProfileCardStyles";
 
 export default function ProfileCard() {
+  const { currentUser } = useAuth();
+  const [userName, setUserName] = useState("");
+  const [userPhotoUrl, setUserPhotoUrl] = useState(
+    "https://secure.gravatar.com/avatar/d6fd6bff19d7f0ad4024f3811474fe92?s=180&d=mm&r=g"
+  );
+
+  useEffect(() => {
+    if (currentUser != null) {
+      currentUser.providerData.forEach(function (profile) {
+        setUserName(profile.displayName);
+        setUserPhotoUrl(profile.photoURL);
+        console.log(profile.photoURL);
+      });
+    }
+  }, []);
+
+  if (userName === null) {
+    setUserName("");
+  }
+
+  if (userPhotoUrl === null) {
+    setUserPhotoUrl(
+      "https://secure.gravatar.com/avatar/d6fd6bff19d7f0ad4024f3811474fe92?s=180&d=mm&r=g"
+    );
+  }
+
   const { latitude, longitude } = usePosition(true);
   const [county, setCounty] = useState("");
   const [province, setProvince] = useState("");
@@ -72,11 +99,11 @@ export default function ProfileCard() {
     <div>
       <CardWrapper>
         <CardHeader>
-          <CardHeading>Hello Ali!</CardHeading>
+          <CardHeading>{`Hello ${userName} 👋`}</CardHeading>
         </CardHeader>
 
         <CardBody>
-          <CardImage />
+          <CardImage src={`${userPhotoUrl}`} />
           <CardField>
             <MdLocationOn style={{ color: "#e5195f" }} />{" "}
             {county && province ? `${county} ${province}` : "Location blocked!"}
@@ -102,7 +129,6 @@ export default function ProfileCard() {
             <BsHeartFill />
           </CardIcon>
         </CardIconContainer>
-
       </CardWrapper>
 
       <Link to="/">

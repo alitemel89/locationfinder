@@ -32,8 +32,6 @@ export const CardBody = styled.div`
 export const CardImage = styled.img`
   height: 10rem;
   width: 10rem;
-  background: url("https://static.theceomagazine.net/wp-content/uploads/2018/10/15093202/elon-musk.jpg")
-    no-repeat;
   background-size: cover;
   border-radius: 50%;
   display: block;

@@ -4,7 +4,11 @@ import { auth } from "../Firebase/FirebaseUtils";
 import { Nav, StyledLink, NavButton } from "./HeaderStyles";
 import { Redirect } from 'react-router-dom';
 
-const Header = ({ currentUser }) => {
+import { useAuth } from "../../contexts/AuthContext";
+
+
+const Header = () => {
+  const { currentUser } = useAuth();
   return (
     <>
       <Nav>

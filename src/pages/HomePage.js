@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MapQuest from '../components/MapQuest/MapQuest';
 import MyLocation from '../components/MyLocation/MyLocation';
 
+
 const api_key = process.env.MAP_QUEST_REACT_APP_API_KEY;
 
 const HomePage = () => {
@@ -50,6 +51,7 @@ const HomePage = () => {
         </div>
 
         <MyLocation setCenter={setCenter} setMarker={addMarker} />
+
         </>
     )
 }

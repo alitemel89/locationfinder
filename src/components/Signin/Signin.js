@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useAuth } from '../../contexts/AuthContext';
 
 import {
@@ -15,49 +15,46 @@ import {
   CardLink,
   CustomButton,
   CardLinkText
-} from "./SignupStyles";
+} from "./SigninStyles";
 
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import { FiTwitter } from "@react-icons/all-files/fi/FiTwitter";
 import { signInWithGoogle } from "../Firebase/FirebaseUtils";
 
 
-const Signup = () => {
-  const userNameRef = useRef();
+const Signin = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
-  
+
+  const { login, currentUser } = useAuth();
+  console.log(currentUser);
 
   async function handleSubmit(e) {
     e.preventDefault()
-    signup(emailRef.current.value, passwordRef.current.value)
+    login(emailRef.current.value, passwordRef.current.value)
 
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return alert('Passwords do not match')
-    }
 
     try {
-      await signup(emailRef.current.value, passwordRef.current.value)
+      await login(emailRef.current.value, passwordRef.current.value)
+      
     } catch(error) {
       console.log(error.message);
+      alert('Failed to sign in')
     }
 
   }
+
+  
   return (
     <>
       <CardWrapper>
         <CardHeader>
           <CardHeading>
-            Sign up 
+            Sign in with email
           </CardHeading>
         </CardHeader>
 
         <CardBody>
-          <CardFieldset>
-            <CardInput placeholder="Username" type="text" required ref={userNameRef}/>
-          </CardFieldset>
 
           <CardFieldset>
             <CardInput placeholder="E-mail" type="text" required ref={emailRef} />
@@ -68,15 +65,6 @@ const Signup = () => {
             <CardIcon className="fa fa-eye" eye small />
           </CardFieldset>
 
-          <CardFieldset>
-            <CardInput
-              placeholder="Confirm Password"
-              type="password"
-              required
-              ref={passwordConfirmRef}
-            />
-            <CardIcon className="fa fa-eye" eye small />
-          </CardFieldset>
 
           <CardFieldset>
             <CardOptionsNote>Or log in using</CardOptionsNote>
@@ -100,12 +88,12 @@ const Signup = () => {
           </CardFieldset>
 
           <CardFieldset>
-            <CustomButton onClick={handleSubmit} type="button">Sign up</CustomButton>
+            <CustomButton onClick={handleSubmit} type="button">Sign in</CustomButton>
           </CardFieldset>
 
           <CardFieldset>
-            <CardLink to="/signin">
-              <CardLinkText>I already have an account</CardLinkText>
+            <CardLink to="/signup">
+              <CardLinkText>Need an account?</CardLinkText>
             </CardLink>
           </CardFieldset>
         </CardBody>
@@ -114,4 +102,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signin;
